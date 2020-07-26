@@ -13,7 +13,7 @@ namespace JWTTest.Helpers
 {
     public static class JWT
     {
-        private static string GenerarTokenJWT(UsuarioInfo usuarioInfo, IConfiguration configuration)
+        public static string GenerarTokenJWT(UsuarioInfo usuarioInfo, IConfiguration configuration)
         {
             // CREAMOS EL HEADER //
             var _symmetricSecurityKey = new SymmetricSecurityKey(
@@ -32,7 +32,7 @@ namespace JWTTest.Helpers
                 new Claim("apellidos", usuarioInfo.Apellidos),
                 new Claim(JwtRegisteredClaimNames.Email, usuarioInfo.Email),
                 new Claim(ClaimTypes.Role, usuarioInfo.Rol),
-                new Claim("EmployeeId", "dose")
+                new Claim("EmployeeId", "dos")
             };
 
             // CREAMOS EL PAYLOAD //

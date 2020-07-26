@@ -54,6 +54,10 @@ namespace JWTTest
             // Configuración de servicio de políticas de autorización
             services.AddAuthorization(options =>
             {
+                // DEFINIR POLíTICA DE AUTORIZACIÓN
+                // Nombre de la política: ShouldBeOnlyEmployee
+                // Tipo de Claim: EmployeeId
+                // Array de valores permitidos: "uno","dos","tres"
                 options.AddPolicy("ShouldBeOnlyEmployee", policy =>
                       policy.RequireClaim("EmployeeId", "uno","dos","tres"));
             });
@@ -73,7 +77,9 @@ namespace JWTTest
 
             app.UseRouting();
 
+            // Autenticación: Hace referecia al esquema de autenticación (JwtBearerDefaults.AuthenticationScheme)
             app.UseAuthentication();
+            // Autorización: Hace referencia a la autorización del usuarios y sirve para hacer uso de [Authorize]
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

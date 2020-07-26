@@ -20,18 +20,38 @@ namespace JWTTest.Controllers
             _context = context;
         }
 
-        // GET: api/Pais
+        // GET: api/Pais/politica
+        // Solo usuarios que cumplan con la política de autorización (Claims correspondientes en JWT) accesan a este recurso
         [Authorize (Policy = "ShouldBeOnlyEmployee")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pais>>> GetPais()
+        [HttpGet("politica")]
+        public async Task<ActionResult<IEnumerable<Pais>>> GetPaisPolitica()
         {
             return await _context.Paises.ToListAsync();
         }
 
-        // GET: api/Pais
+        // GET: api/Pais/anonimo
+        // Cualquier usuario puede entrar aun si no esta autenticado (no JWT)
         [AllowAnonymous]
-        [HttpGet("lolo")]
-        public async Task<ActionResult<IEnumerable<Pais>>> lolo()
+        [HttpGet("anonimo")]
+        public async Task<ActionResult<IEnumerable<Pais>>> GetPaisAnonimo()
+        {
+            return await _context.Paises.ToListAsync();
+        }
+
+        // GET: api/Pais/autenticado
+        // Solo un usurio Autenticado puede pasar (Cualquier JWT)
+        [Authorize]
+        [HttpGet("autenticado")]
+        public async Task<ActionResult<IEnumerable<Pais>>> GetPaisAuteuticado()
+        {
+            return await _context.Paises.ToListAsync();
+        }
+
+        // GET: api/Pais/autenticado
+        // Solo un usurio un Claim de tipo Rol = Administrador puede acceder a este recurso
+        [Authorize (Roles = "Administrador")]
+        [HttpGet("rol")]
+        public async Task<ActionResult<IEnumerable<Pais>>> GetPaisRol()
         {
             return await _context.Paises.ToListAsync();
         }
