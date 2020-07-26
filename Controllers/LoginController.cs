@@ -39,7 +39,6 @@ namespace JWTTest.Controllers
             else
             {
                 return Unauthorized();
-
             }
         }
 
